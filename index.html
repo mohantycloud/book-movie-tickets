@@ -1,60 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinema Show</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cinema Show</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 60%;
+      margin: 50px auto;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #915e31;
+    }
+
+    label {
+      font-size: 1.1em;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .booking-summary {
+      display: none;
+      background-color: #e9f7e9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .booking-summary h2 {
+      text-align: center;
+    }
+
+    .booking-summary p {
+      font-size: 1.2em;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Book Your Movie Tickets</h1>
-        <h2>Endless Entertainment</h2>
+  <div class="container">
+    <h1>Book Your Movie Tickets</h1>
+    <h2>Endless Entertainment</h2>
 
-        <div class="movie-selection">
-            <label for="movie">Choose a Movie:</label>
-            <select id="movie">
-                <option value="KGF-2">KGF-2</option>
-                <option value="PUSHPA-2">PUSHPA-2</option>
-                <option value="SIKANDAR">SIKANDAR</option>
-                <option value="RRR">RRR</option>
-            </select>
-        </div>
-
-        <div class="date-selection">
-            <label for="date">Choose a Date:</label>
-            <input type="date" id="date" required>
-        </div>
-
-        <div class="time-selection">
-            <label for="time">Choose a Time:</label>
-            <select id="time">
-                <option value="9:00 AM">9:00 AM</option>
-                <option value="11:00 AM">11:00 AM</option>
-                <option value="1:00 PM">11:00 PM</option>
-                <option value="12:00 PM">12:00 PM</option>
-                <option value="3:00 PM">3:00 PM</option>
-                <option value="6:00 PM">6:00 PM</option>
-                <option value="9:00 PM">9:00 PM</option>
-            </select>
-        </div>
-
-        <div class="seats-selection">
-            <label for="seats">Number of Seats:</label>
-            <input type="number" id="seats" min="1" max="10" value="1">
-        </div>
-
-        <button id="book-btn">Book Tickets</button>
-
-        <div class="booking-summary" id="booking-summary">
-            <h2>Booking Summary</h2>
-            <p id="movie-name"></p>
-            <p id="movie-date"></p>
-            <p id="movie-time"></p>
-            <p id="seats-count"></p>
-        </div>
+    <div class="movie-selection">
+      <label for="movie">Choose a Movie:</label>
+      <select id="movie">
+        <option value="KGF-2">KGF-2</option>
+        <option value="PUSHPA-2">PUSHPA-2</option>
+        <option value="SIKANDAR">SIKANDAR</option>
+        <option value="RRR">RRR</option>
+      </select>
     </div>
 
-    <script src="script.js"></script>
+    <div class="date-selection">
+      <label for="date">Choose a Date:</label>
+      <input type="date" id="date" required />
+    </div>
+
+    <div class="time-selection">
+      <label for="time">Choose a Time:</label>
+      <select id="time">
+        <option value="9:00 AM">9:00 AM</option>
+        <option value="12:00 PM">12:00 PM</option>
+        <option value="3:00 PM">3:00 PM</option>
+        <option value="6:00 PM">6:00 PM</option>
+        <option value="9:00 PM">9:00 PM</option>
+      </select>
+    </div>
+
+    <div class="seats-selection">
+      <label for="seats">Number of Seats:</label>
+      <input type="number" id="seats" min="1" max="10" value="1" />
+    </div>
+
+    <button id="book-btn">Book Tickets</button>
+
+    <div class="booking-summary" id="booking-summary">
+      <h2>Booking Summary</h2>
+      <p id="movie-name"></p>
+      <p id="movie-date"></p>
+      <p id="movie-time"></p>
+      <p id="seats-count"></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('book-btn').addEventListener('click', function() {
+      var movie = document.getElementById('movie').value;
+      var date = document.getElementById('date').value;
+      var time = document.getElementById('time').value;
+      var seats = document.getElementById('seats').value;
+
+      if (date === "") {
+        alert("Please select a date");
+        return;
+      }
+
+      // Display booking summary
+      document.getElementById('movie-name').textContent = "Movie: " + movie;
+      document.getElementById('movie-date').textContent = "Date: " + date;
+      document.getElementById('movie-time').textContent = "Time: " + time;
+      document.getElementById('seats-count').textContent = "Seats: " + seats;
+
+      // Show booking summary div
+      document.getElementById('booking-summary').style.display = 'block';
+    });
+  </script>
 </body>
 </html>
